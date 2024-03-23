@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="moveAside附件用32位ida打开，查看字符串  发现含flag的字符串，上方的字符串很想uuid的格式，猜测与flag一一对应的关系，提取字符串，与flag{}-字符对照 12345678910111213141516171819200110 0111   0x670110 0110   &amp;#x27;f&amp;#x27;1001 1101   0x9d0110 1100   &amp;#x27;l&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2024/03/23/ciscn-moveAside/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="moveAside附件用32位ida打开，查看字符串  发现含flag的字符串，上方的字符串很想uuid的格式，猜测与flag一一对应的关系，提取字符串，与flag{}-字符对照 12345678910111213141516171819200110 0111   0x670110 0110   &amp;#x27;f&amp;#x27;1001 1101   0x9d0110 1100   &amp;#x27;l&amp;#x">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/imgs/$%7Bfiilename%7D/image-20240311152957928.png">
+<meta property="article:published_time" content="2024-03-23T13:44:45.682Z">
+<meta property="article:modified_time" content="2024-03-23T13:56:56.676Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/imgs/$%7Bfiilename%7D/image-20240311152957928.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-ciscn-moveAside" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/23/ciscn-moveAside/" class="article-date">
+  <time class="dt-published" datetime="2024-03-23T13:44:45.682Z" itemprop="datePublished">2024-03-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="moveAside"><a href="#moveAside" class="headerlink" title="moveAside"></a>moveAside</h1><p>附件用32位ida打开，查看字符串</p>
+<p><img src="/../imgs/$%7Bfiilename%7D/image-20240311152957928.png" alt="image-20240311152957928"></p>
+<p>发现含flag的字符串，上方的字符串很想uuid的格式，猜测与flag一一对应的关系，提取字符串，与flag{}-字符对照</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">0110 0111   0x67</span><br><span class="line">0110 0110   &#x27;f&#x27;</span><br><span class="line"></span><br><span class="line">1001 1101   0x9d</span><br><span class="line">0110 1100   &#x27;l&#x27;</span><br><span class="line"></span><br><span class="line">0110 0000   0x60</span><br><span class="line">0110 0001   &#x27;a&#x27;</span><br><span class="line"></span><br><span class="line">0110 0110   0x66</span><br><span class="line">0110 0111   &#x27;g&#x27;</span><br><span class="line"></span><br><span class="line">1000 1010   0x8a</span><br><span class="line">0111 1011   &#x27;&#123;&#x27;</span><br><span class="line"></span><br><span class="line">0101 1100   0x5c</span><br><span class="line">0010 1101   &#x27;-&#x27;</span><br><span class="line"></span><br><span class="line">1000 1100   0x8c</span><br><span class="line">0111 1101   &#x27;&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>发现234位不变，最低位取反，又根据uuid的字符集推测对应字符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">doc = &#x27;0123456789abcde&#x27;</span><br><span class="line">for i in enc:#密文</span><br><span class="line">    if i in dict:#已知对应字典</span><br><span class="line">        continue</span><br><span class="line">    else:</span><br><span class="line">        print(hex(i) + &#x27;:&#x27;, end=&#x27;&#x27;)</span><br><span class="line">        for j in doc:</span><br><span class="line">            if i &amp; 0xe == ord(j) &amp; 0xe:</span><br><span class="line">                if i &amp; 1 != ord(j) &amp; 1:</span><br><span class="line">                    print(&#x27;\&#x27;&#x27; + j + &#x27;\&#x27;&#x27;, end=&#x27;,&#x27;)</span><br><span class="line">    print()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行即可得到可知的对应字典</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">dict = &#123;</span><br><span class="line">    0x67: &#x27;f&#x27;,</span><br><span class="line">    0x9D: &#x27;l&#x27;,</span><br><span class="line">    0x60: &#x27;a&#x27;,</span><br><span class="line">    0x66: &#x27;g&#x27;,</span><br><span class="line">    0x8A: &#x27;&#123;&#x27;,</span><br><span class="line">    0x5C: &#x27;-&#x27;,</span><br><span class="line">    0x8C: &#x27;&#125;&#x27;,</span><br><span class="line">    # 以下只有一个满足条件</span><br><span class="line">    0x56: &#x27;7&#x27;,</span><br><span class="line">    0x49: &#x27;8&#x27;,</span><br><span class="line">    0x48: &#x27;9&#x27;,</span><br><span class="line">    0x51: &#x27;0&#x27;,</span><br><span class="line">    0x57: &#x27;6&#x27;,</span><br><span class="line">    # 以下有两个满足条件</span><br><span class="line">    0x50: &#x27;1&#x27;,</span><br><span class="line">    0x65: [&#x27;4&#x27;,&#x27;d&#x27;],</span><br><span class="line">    0x64: [&#x27;5&#x27;,&#x27;e&#x27;],</span><br><span class="line">    0x55: [&#x27;4&#x27;,&#x27;d&#x27;],</span><br><span class="line">    0x54: [&#x27;5&#x27;,&#x27;e&#x27;],</span><br><span class="line">    0x63: [&#x27;2&#x27;,&#x27;b&#x27;],</span><br><span class="line">    0x62: [&#x27;3&#x27;,&#x27;c&#x27;],</span><br><span class="line">    0x52: [&#x27;3&#x27;,&#x27;c&#x27;],</span><br><span class="line">    0x53: [&#x27;2&#x27;,&#x27;b&#x27;],</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>遍历每种flag可能，再去liunx爆破出最后的flag</p>
+<p>exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line"># flag的16进制字母表</span><br><span class="line">alphabet = &quot;0123456789abcdef&quot;</span><br><span class="line"># 从IDA获取的42长的byte数组</span><br><span class="line">raw = [0x67, 0x9D, 0x60, 0x66, 0x8A, 0x56, 0x49, 0x50, 0x65, 0x65,</span><br><span class="line">       0x60, 0x55, 0x64, 0x5C, 0x65, 0x48, 0x50, 0x51, 0x5C, 0x55,</span><br><span class="line">       0x67, 0x51, 0x57, 0x5C, 0x49, 0x67, 0x54, 0x63, 0x5C, 0x54,</span><br><span class="line">       0x62, 0x52, 0x56, 0x54, 0x54, 0x50, 0x49, 0x53, 0x52, 0x52,</span><br><span class="line">       0x56, 0x8C]</span><br><span class="line"></span><br><span class="line">d = &#123;0x67: [&quot;f&quot;], 0x9d: [&quot;l&quot;], 0x60: [&quot;a&quot;],</span><br><span class="line">     0x66: [&quot;g&quot;], 0x5c: [&quot;-&quot;], 0x8a: [&quot;&#123;&quot;], 0x8c: [&quot;&#125;&quot;]&#125;</span><br><span class="line"># 遍历查看&#123;括号中的可能内容&#125;</span><br><span class="line">for j in range(5, 41):</span><br><span class="line">    # 0x5c对应&#x27;-&#x27;</span><br><span class="line">    if raw[j] in d.keys():</span><br><span class="line">        continue</span><br><span class="line">    # 遍历0x00-0xff 只取其中的奇数作亦或</span><br><span class="line">    t = []</span><br><span class="line">    for i in range(1, 256, 2):</span><br><span class="line">        s = chr(raw[j] ^ i)</span><br><span class="line">        # 在字母表内 而且运算先后 低1,2,3bit位相同 且未出现过</span><br><span class="line">        if s in alphabet and ord(s) &amp; 0xe == raw[j] &amp; 0xe and s not in &quot;flag&#123;-&#125;&quot;:</span><br><span class="line">            t.append(s)</span><br><span class="line">    d[raw[j]] = t</span><br><span class="line"></span><br><span class="line">print(d)</span><br><span class="line"></span><br><span class="line">for i in raw:</span><br><span class="line">    print(f&quot;&#123;hex(i)&#125; : &#123;d[i]&#125;&quot;)</span><br><span class="line"></span><br><span class="line"># 16种可能</span><br><span class="line">ds = [</span><br><span class="line">    &#123;0x63: &#x27;b&#x27;, 0x53: &#x27;2&#x27;, 0x62: &#x27;c&#x27;, 0x52: &#x27;3&#x27;, 0x65: &#x27;d&#x27;, 0x55: &#x27;4&#x27;, 0x64: &#x27;e&#x27;, 0x54: &#x27;5&#x27;&#125;,</span><br><span class="line">    &#123;0x63: &#x27;b&#x27;, 0x53: &#x27;2&#x27;, 0x62: &#x27;c&#x27;, 0x52: &#x27;3&#x27;, 0x65: &#x27;d&#x27;, 0x55: &#x27;4&#x27;, 0x64: &#x27;5&#x27;, 0x54: &#x27;e&#x27;&#125;,</span><br><span class="line"></span><br><span class="line">    &#123;0x63: &#x27;b&#x27;, 0x53: &#x27;2&#x27;, 0x62: &#x27;c&#x27;, 0x52: &#x27;3&#x27;, 0x65: &#x27;4&#x27;, 0x55: &#x27;d&#x27;, 0x64: &#x27;e&#x27;, 0x54: &#x27;5&#x27;&#125;,</span><br><span class="line">    &#123;0x63: &#x27;b&#x27;, 0x53: &#x27;2&#x27;, 0x62: &#x27;c&#x27;, 0x52: &#x27;3&#x27;, 0x65: &#x27;4&#x27;, 0x55: &#x27;d&#x27;, 0x64: &#x27;5&#x27;, 0x54: &#x27;e&#x27;&#125;,</span><br><span class="line"></span><br><span class="line">    &#123;0x63: &#x27;b&#x27;, 0x53: &#x27;2&#x27;, 0x62: &#x27;3&#x27;, 0x52: &#x27;c&#x27;, 0x65: &#x27;d&#x27;, 0x55: &#x27;4&#x27;, 0x64: &#x27;e&#x27;, 0x54: &#x27;5&#x27;&#125;,</span><br><span class="line">    &#123;0x63: &#x27;b&#x27;, 0x53: &#x27;2&#x27;, 0x62: &#x27;3&#x27;, 0x52: &#x27;c&#x27;, 0x65: &#x27;d&#x27;, 0x55: &#x27;4&#x27;, 0x64: &#x27;5&#x27;, 0x54: &#x27;e&#x27;&#125;,</span><br><span class="line"></span><br><span class="line">    &#123;0x63: &#x27;b&#x27;, 0x53: &#x27;2&#x27;, 0x62: &#x27;3&#x27;, 0x52: &#x27;c&#x27;, 0x65: &#x27;4&#x27;, 0x55: &#x27;d&#x27;, 0x64: &#x27;e&#x27;, 0x54: &#x27;5&#x27;&#125;,</span><br><span class="line">    &#123;0x63: &#x27;b&#x27;, 0x53: &#x27;2&#x27;, 0x62: &#x27;3&#x27;, 0x52: &#x27;c&#x27;, 0x65: &#x27;4&#x27;, 0x55: &#x27;d&#x27;, 0x64: &#x27;5&#x27;, 0x54: &#x27;e&#x27;&#125;,</span><br><span class="line"></span><br><span class="line">    &#123;0x63: &#x27;2&#x27;, 0x53: &#x27;b&#x27;, 0x62: &#x27;c&#x27;, 0x52: &#x27;3&#x27;, 0x65: &#x27;d&#x27;, 0x55: &#x27;4&#x27;, 0x64: &#x27;e&#x27;, 0x54: &#x27;5&#x27;&#125;,</span><br><span class="line">    &#123;0x63: &#x27;2&#x27;, 0x53: &#x27;b&#x27;, 0x62: &#x27;c&#x27;, 0x52: &#x27;3&#x27;, 0x65: &#x27;d&#x27;, 0x55: &#x27;4&#x27;, 0x64: &#x27;5&#x27;, 0x54: &#x27;e&#x27;&#125;,</span><br><span class="line"></span><br><span class="line">    &#123;0x63: &#x27;2&#x27;, 0x53: &#x27;b&#x27;, 0x62: &#x27;c&#x27;, 0x52: &#x27;3&#x27;, 0x65: &#x27;4&#x27;, 0x55: &#x27;d&#x27;, 0x64: &#x27;e&#x27;, 0x54: &#x27;5&#x27;&#125;,</span><br><span class="line">    &#123;0x63: &#x27;2&#x27;, 0x53: &#x27;b&#x27;, 0x62: &#x27;c&#x27;, 0x52: &#x27;3&#x27;, 0x65: &#x27;4&#x27;, 0x55: &#x27;d&#x27;, 0x64: &#x27;5&#x27;, 0x54: &#x27;e&#x27;&#125;,</span><br><span class="line"></span><br><span class="line">    &#123;0x63: &#x27;2&#x27;, 0x53: &#x27;b&#x27;, 0x62: &#x27;3&#x27;, 0x52: &#x27;c&#x27;, 0x65: &#x27;d&#x27;, 0x55: &#x27;4&#x27;, 0x64: &#x27;e&#x27;, 0x54: &#x27;5&#x27;&#125;,</span><br><span class="line">    &#123;0x63: &#x27;2&#x27;, 0x53: &#x27;b&#x27;, 0x62: &#x27;3&#x27;, 0x52: &#x27;c&#x27;, 0x65: &#x27;d&#x27;, 0x55: &#x27;4&#x27;, 0x64: &#x27;5&#x27;, 0x54: &#x27;e&#x27;&#125;,</span><br><span class="line"></span><br><span class="line">    &#123;0x63: &#x27;2&#x27;, 0x53: &#x27;b&#x27;, 0x62: &#x27;3&#x27;, 0x52: &#x27;c&#x27;, 0x65: &#x27;4&#x27;, 0x55: &#x27;d&#x27;, 0x64: &#x27;e&#x27;, 0x54: &#x27;5&#x27;&#125;,</span><br><span class="line">    &#123;0x63: &#x27;2&#x27;, 0x53: &#x27;b&#x27;, 0x62: &#x27;3&#x27;, 0x52: &#x27;c&#x27;, 0x65: &#x27;4&#x27;, 0x55: &#x27;d&#x27;, 0x64: &#x27;5&#x27;, 0x54: &#x27;e&#x27;&#125;,</span><br><span class="line"></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">for i in range(16):</span><br><span class="line">    flag = &#x27;&#x27;</span><br><span class="line">    for j in raw:</span><br><span class="line">        if len(d[j]) == 1:</span><br><span class="line">            flag += d[j][0]</span><br><span class="line">        else:</span><br><span class="line">            flag += ds[i][j]</span><br><span class="line">    print(flag)</span><br><span class="line">    proc = process(&#x27;./moveAside&#x27;)</span><br><span class="line">    proc.sendlineafter(b&#x27;flag:\n&#x27;, flag.encode())</span><br><span class="line">    # 接收返回的输入字符串</span><br><span class="line">    proc.recvline()</span><br><span class="line">    # 超过0.02秒则说明没有回显，停止接收</span><br><span class="line">    res = proc.recv(timeout=0.02)</span><br><span class="line">    if b&#x27;yes!&#x27; in res:</span><br><span class="line">        success(&#x27;\n&#x27;)</span><br><span class="line">        success(flag)</span><br><span class="line">        success(&#x27;\n&#x27;)</span><br><span class="line">        exit(0)</span><br><span class="line">    proc.kill()</span><br></pre></td></tr></table></figure>
+
+<p>运行得到最后的flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;781dda4e-d910-4f06-8f5b-5c3755182337&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/23/ciscn-moveAside/" data-id="clu47h5f400043cd6bx2vaizx" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/03/23/ciscn-babyre/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/03/23/ciscn-babybc/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/23/iscc-Greedy_Snake/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/23/iscc-garden/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/23/ciscn-babyre/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/23/ciscn-moveAside/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/23/ciscn-babybc/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

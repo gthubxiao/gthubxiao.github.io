@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="babybc附件为.bc文件。.bc文件是clang编译器的二进制文件，以下为clang常用命令，包含由.bc到可执行文件的命令，执行后即可拖入ida。 1.将C文件编译为LLVM bitcode 文件 1clang -o3  -emit-llvm hello.c -c -o hello.bc  2.由于.bc 是bitcode的二进制格式，.ll 文件 llvm bitcode 的可读文本 1c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2024/03/23/ciscn-babybc/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="babybc附件为.bc文件。.bc文件是clang编译器的二进制文件，以下为clang常用命令，包含由.bc到可执行文件的命令，执行后即可拖入ida。 1.将C文件编译为LLVM bitcode 文件 1clang -o3  -emit-llvm hello.c -c -o hello.bc  2.由于.bc 是bitcode的二进制格式，.ll 文件 llvm bitcode 的可读文本 1c">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/imgs/$%7Bfiilename%7D/image-20240309224659846.png">
+<meta property="article:published_time" content="2024-03-23T13:44:45.682Z">
+<meta property="article:modified_time" content="2024-03-23T13:55:47.254Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/imgs/$%7Bfiilename%7D/image-20240309224659846.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-ciscn-babybc" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/23/ciscn-babybc/" class="article-date">
+  <time class="dt-published" datetime="2024-03-23T13:44:45.682Z" itemprop="datePublished">2024-03-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="babybc"><a href="#babybc" class="headerlink" title="babybc"></a>babybc</h1><p>附件为.bc文件。.bc文件是clang编译器的二进制文件，以下为clang常用命令，包含由.bc到可执行文件的命令，执行后即可拖入ida。</p>
+<p>1.将C文件编译为LLVM bitcode 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -o3  -emit-llvm hello.c -c -o hello.bc</span><br></pre></td></tr></table></figure>
+
+<p>2.由于.bc 是bitcode的二进制格式，.ll 文件 llvm bitcode 的可读文本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -o3  -emit-llvm hello.c -S -o hello.ll</span><br></pre></td></tr></table></figure>
+
+<p>.llvm-dis 工具反汇编llvm bitcode 文件， 可以将bc文件转为.ll文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">llvm-dis hello.bc</span><br></pre></td></tr></table></figure>
+
+<p>3.用 llvm-as 工具通过汇编文件（.ll 文件）得到字节码文件（.bc 文件）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">llvm-as hello.ll hello.bc</span><br></pre></td></tr></table></figure>
+
+<p>4..bc编译成.o<br>    第一种方法：用clang直接将其编译为可执行文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang a.o.bc -o struct</span><br></pre></td></tr></table></figure>
+
+<p>​	第二种方法：用llc先将bc编译为汇编，再用本地的gcc将其编译为可执行文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">llc a.o.bc -o hello.s</span><br><span class="line">gcc hello.s -o hello</span><br></pre></td></tr></table></figure>
+
+<p>5.编译生成可执行文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang hello.c -o hello</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -emit-llvm -c hello.c</span><br></pre></td></tr></table></figure>
+
+<p>6..bc到.s编译指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -S -fobjc-arc struct.bc -o struct.s</span><br></pre></td></tr></table></figure>
+
+
+
+<p>所给附件无法继续编译</p>
+<p><img src="/../imgs/$%7Bfiilename%7D/image-20240309224659846.png" alt="image-20240309224659846"></p>
+<p>网上的wp都是可直接编译</p>
+<p>拖入ida后的函数：</p>
+<p>①main</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  size_t v3; // rax</span><br><span class="line">  unsigned __int64 i; // rcx</span><br><span class="line">  unsigned __int8 v5; // dl</span><br><span class="line"></span><br><span class="line">  _isoc99_scanf(&quot;%s&quot;, x);</span><br><span class="line">  if ( strlen(x) == 25 )                        // 长度为25</span><br><span class="line">  &#123;</span><br><span class="line">    if ( x[0] )</span><br><span class="line">    &#123;</span><br><span class="line">      if ( (x[0] - 48) &gt; 5u )                   // 其它字符不大于&#x27;5&#x27;</span><br><span class="line">        return 0;</span><br><span class="line">      v3 = strlen(x);</span><br><span class="line">      i = 1LL;</span><br><span class="line">      while ( i &lt; v3 )</span><br><span class="line">      &#123;</span><br><span class="line">        v5 = x[i++] - 48;</span><br><span class="line">        if ( v5 &gt; 5u )</span><br><span class="line">          return 0;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if ( use_input_fill_arr(x) &amp;&amp; check(x) )</span><br><span class="line">      printf(&quot;CISCN&#123;MD5(%s)&#125;&quot;, x);</span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>②use_input_fill_arr</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">char __fastcall use_input_fill_arr(__int64 a1)</span><br><span class="line">&#123;</span><br><span class="line">  char *addr; // rdi</span><br><span class="line">  __int64 i; // rax</span><br><span class="line">  char char0; // cl</span><br><span class="line">  char char1; // cl</span><br><span class="line">  char char2; // cl</span><br><span class="line">  char char3; // cl</span><br><span class="line">  char char4; // cl</span><br><span class="line"></span><br><span class="line">  addr = (a1 + 4);</span><br><span class="line">  for ( i = 0LL; i &lt; 5; ++i )                   // 5次循环,每次循环中检验一行的5个元素是否遵循</span><br><span class="line">                                                // (如果m数组中对应的位置不为空,我们输入的字符就必须为0,如果为空,那么就用我们输入字符-&#x27;0&#x27;之后填入对应位置)</span><br><span class="line">                                                // 5*5数独</span><br><span class="line">  &#123;</span><br><span class="line">    char0 = *(addr - 4);</span><br><span class="line">    if ( map[5 * i] )</span><br><span class="line">    &#123;</span><br><span class="line">      if ( char0 != &#x27;0&#x27; )</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">      if ( char0 == &#x27;0&#x27; )</span><br><span class="line">        return 0;</span><br><span class="line">      map[5 * i] = char0 - &#x27;0&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">    char1 = *(addr - 3);</span><br><span class="line">    if ( map[5 * i + 1] )</span><br><span class="line">    &#123;</span><br><span class="line">      if ( char1 != 48 )</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">      if ( char1 == 48 )</span><br><span class="line">        return 0;</span><br><span class="line">      map[5 * i + 1] = char1 - 48;</span><br><span class="line">    &#125;</span><br><span class="line">    char2 = *(addr - 2);</span><br><span class="line">    if ( map[5 * i + 2] )</span><br><span class="line">    &#123;</span><br><span class="line">      if ( char2 != 48 )</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">      if ( char2 == 48 )</span><br><span class="line">        return 0;</span><br><span class="line">      map[5 * i + 2] = char2 - 48;</span><br><span class="line">    &#125;</span><br><span class="line">    char3 = *(addr - 1);</span><br><span class="line">    if ( map[5 * i + 3] )</span><br><span class="line">    &#123;</span><br><span class="line">      if ( char3 != 48 )</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">      if ( char3 == 48 )</span><br><span class="line">        return 0;</span><br><span class="line">      map[5 * i + 3] = char3 - 48;</span><br><span class="line">    &#125;</span><br><span class="line">    char4 = *addr;</span><br><span class="line">    if ( map[5 * i + 4] )</span><br><span class="line">    &#123;</span><br><span class="line">      if ( char4 != 48 )</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">      if ( char4 == 48 )</span><br><span class="line">        return 0;</span><br><span class="line">      map[5 * i + 4] = char4 - 48;</span><br><span class="line">    &#125;</span><br><span class="line">    addr += 5;</span><br><span class="line">  &#125;</span><br><span class="line">  return 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>③check</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br></pre></td><td class="code"><pre><span class="line">char __fastcall check(__int64 a1)</span><br><span class="line">&#123;</span><br><span class="line">  __int64 i; // rax</span><br><span class="line">  __int64 char0; // rcx</span><br><span class="line">  __int64 char1; // rcx</span><br><span class="line">  __int64 char2; // rcx</span><br><span class="line">  __int64 char3; // rcx</span><br><span class="line">  __int64 k; // rax</span><br><span class="line">  __int64 v7; // rcx</span><br><span class="line">  __int64 v8; // rcx</span><br><span class="line">  __int64 v9; // rcx</span><br><span class="line">  __int64 v10; // rcx</span><br><span class="line">  __int64 j; // rax</span><br><span class="line">  char judge_0; // cl</span><br><span class="line">  char v13; // cl</span><br><span class="line">  char v14; // cl</span><br><span class="line">  char judge; // cl</span><br><span class="line">  __int64 i_1; // rcx</span><br><span class="line">  char result; // al</span><br><span class="line">  char v18; // al</span><br><span class="line">  char v19; // al</span><br><span class="line">  char v20; // al</span><br><span class="line">  char v21; // al</span><br><span class="line">  char v22; // al</span><br><span class="line">  int v23; // [rsp+0h] [rbp-10h]</span><br><span class="line">  __int16 v24; // [rsp+4h] [rbp-Ch]</span><br><span class="line">  int v25; // [rsp+8h] [rbp-8h]</span><br><span class="line">  __int16 v26; // [rsp+Ch] [rbp-4h]</span><br><span class="line"></span><br><span class="line">  i = 0LL;</span><br><span class="line">  while ( 1 )</span><br><span class="line">  &#123;</span><br><span class="line">    v26 = 0;</span><br><span class="line">    v25 = 0;</span><br><span class="line">    char0 = map[5 * i];</span><br><span class="line">    if ( *(&amp;v25 + char0) )                      // 检验一行是否有相同的</span><br><span class="line">      break;</span><br><span class="line">    *(&amp;v25 + char0) = 1;</span><br><span class="line">    char1 = map[5 * i + 1];</span><br><span class="line">    if ( *(&amp;v25 + char1) )                      // 如果字符相同,那么之前*(&amp;v24 + char)取到的储存位置就相同,因为每检测一个都会在那个位置设1,之后如果再取到那个位置,就会执行if里面的break</span><br><span class="line">      break;</span><br><span class="line">    *(&amp;v25 + char1) = 1;</span><br><span class="line">    char2 = map[5 * i + 2];</span><br><span class="line">    if ( *(&amp;v25 + char2) )</span><br><span class="line">      break;</span><br><span class="line">    *(&amp;v25 + char2) = 1;</span><br><span class="line">    char3 = map[5 * i + 3];</span><br><span class="line">    if ( *(&amp;v25 + char3) )</span><br><span class="line">      break;</span><br><span class="line">    *(&amp;v25 + char3) = 1;</span><br><span class="line">    if ( *(&amp;v25 + map[5 * i + 4]) )</span><br><span class="line">      break;</span><br><span class="line">    if ( ++i &gt;= 5 )</span><br><span class="line">    &#123;</span><br><span class="line">      k = 0LL;</span><br><span class="line">      while ( 1 )</span><br><span class="line">      &#123;</span><br><span class="line">        v24 = 0;</span><br><span class="line">        v23 = 0;</span><br><span class="line">        v7 = map[k];</span><br><span class="line">        if ( *(&amp;v23 + v7) )</span><br><span class="line">          break;                                // 检验一列是否有相同的</span><br><span class="line">        *(&amp;v23 + v7) = 1;</span><br><span class="line">        v8 = map[k + 5];</span><br><span class="line">        if ( *(&amp;v23 + v8) )</span><br><span class="line">          break;</span><br><span class="line">        *(&amp;v23 + v8) = 1;</span><br><span class="line">        v9 = map[k + 10];</span><br><span class="line">        if ( *(&amp;v23 + v9) )</span><br><span class="line">          break;</span><br><span class="line">        *(&amp;v23 + v9) = 1;</span><br><span class="line">        v10 = map[k + 15];</span><br><span class="line">        if ( *(&amp;v23 + v10) )</span><br><span class="line">          break;</span><br><span class="line">        *(&amp;v23 + v10) = 1;</span><br><span class="line">        if ( *(&amp;v23 + map[k + 20]) )</span><br><span class="line">          break;</span><br><span class="line">        if ( ++k &gt;= 5 )</span><br><span class="line">        &#123;</span><br><span class="line">          j = 0LL;</span><br><span class="line">          while ( 1 )</span><br><span class="line">          &#123;</span><br><span class="line">            judge_0 = n[4 * j];</span><br><span class="line">            if ( judge_0 == 2 )</span><br><span class="line">            &#123;</span><br><span class="line">              if ( map[5 * j] &gt; map[5 * j + 1] )// 如果那个位置上为2,那么对应的j就必须满足(m[5 * j] &lt; m[5 * j + 1])</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">            else if ( judge_0 == 1 &amp;&amp; map[5 * j] &lt; map[5 * j + 1] )// 如果那个位置上为1,那么对应的j就必须满足(m[5 * j] &gt; m[5 * j + 1])</span><br><span class="line">            &#123;</span><br><span class="line">              return 0;</span><br><span class="line">            &#125;</span><br><span class="line">            v13 = n[4 * j + 1];</span><br><span class="line">            if ( v13 == 1 )</span><br><span class="line">            &#123;</span><br><span class="line">              if ( map[5 * j + 1] &lt; map[5 * j + 2] )</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">            else if ( v13 == 2 &amp;&amp; map[5 * j + 1] &gt; map[5 * j + 2] )</span><br><span class="line">            &#123;</span><br><span class="line">              return 0;</span><br><span class="line">            &#125;</span><br><span class="line">            v14 = n[4 * j + 2];</span><br><span class="line">            if ( v14 == 2 )</span><br><span class="line">            &#123;</span><br><span class="line">              if ( map[5 * j + 2] &gt; map[5 * j + 3] )</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">            else if ( v14 == 1 &amp;&amp; map[5 * j + 2] &lt; map[5 * j + 3] )</span><br><span class="line">            &#123;</span><br><span class="line">              return 0;</span><br><span class="line">            &#125;</span><br><span class="line">            judge = n[4 * j + 3];</span><br><span class="line">            if ( judge == 2 )</span><br><span class="line">            &#123;</span><br><span class="line">              if ( map[5 * j + 3] &gt; map[5 * j + 4] )</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">            else if ( judge == 1 &amp;&amp; map[5 * j + 3] &lt; map[5 * j + 4] )</span><br><span class="line">            &#123;</span><br><span class="line">              return 0;</span><br><span class="line">            &#125;</span><br><span class="line">            if ( ++j &gt;= 5 )</span><br><span class="line">            &#123;</span><br><span class="line">              i_1 = 0LL;</span><br><span class="line">              while ( 1 )</span><br><span class="line">              &#123;</span><br><span class="line">                v18 = o[5 * i_1];</span><br><span class="line">                if ( v18 == 2 )</span><br><span class="line">                &#123;                               // 如果那个位置上为2,那么对应的i_1就必须满足m[5 * i_1] &gt; m[5 * i_1 + 5]</span><br><span class="line">                  if ( map[5 * i_1] &lt; map[5 * i_1 + 5] )</span><br><span class="line">                    return 0;</span><br><span class="line">                &#125;</span><br><span class="line">                else if ( v18 == 1 &amp;&amp; map[5 * i_1] &gt; map[5 * i_1 + 5] )// 如果那个位置上为1,就必须满足m[5 * i_1] &lt; m[5 * i_1 + 5]</span><br><span class="line">                &#123;</span><br><span class="line">                  return 0;</span><br><span class="line">                &#125;</span><br><span class="line">                v19 = o[5 * i_1 + 1];</span><br><span class="line">                if ( v19 == 1 )</span><br><span class="line">                &#123;</span><br><span class="line">                  if ( map[5 * i_1 + 1] &gt; map[5 * i_1 + 6] )</span><br><span class="line">                    return 0;</span><br><span class="line">                &#125;</span><br><span class="line">                else if ( v19 == 2 &amp;&amp; map[5 * i_1 + 1] &lt; map[5 * i_1 + 6] )</span><br><span class="line">                &#123;</span><br><span class="line">                  return 0;</span><br><span class="line">                &#125;</span><br><span class="line">                v20 = o[5 * i_1 + 2];</span><br><span class="line">                if ( v20 == 2 )</span><br><span class="line">                &#123;</span><br><span class="line">                  if ( map[5 * i_1 + 2] &lt; map[5 * i_1 + 7] )</span><br><span class="line">                    return 0;</span><br><span class="line">                &#125;</span><br><span class="line">                else if ( v20 == 1 &amp;&amp; map[5 * i_1 + 2] &gt; map[5 * i_1 + 7] )</span><br><span class="line">                &#123;</span><br><span class="line">                  return 0;</span><br><span class="line">                &#125;</span><br><span class="line">                v21 = o[5 * i_1 + 3];</span><br><span class="line">                if ( v21 == 2 )</span><br><span class="line">                &#123;</span><br><span class="line">                  if ( map[5 * i_1 + 3] &lt; map[5 * i_1 + 8] )</span><br><span class="line">                    return 0;</span><br><span class="line">                &#125;</span><br><span class="line">                else if ( v21 == 1 &amp;&amp; map[5 * i_1 + 3] &gt; map[5 * i_1 + 8] )</span><br><span class="line">                &#123;</span><br><span class="line">                  return 0;</span><br><span class="line">                &#125;</span><br><span class="line">                v22 = o[5 * i_1 + 4];</span><br><span class="line">                if ( v22 == 2 )</span><br><span class="line">                &#123;</span><br><span class="line">                  if ( map[5 * i_1 + 4] &lt; map[5 * i_1 + 9] )</span><br><span class="line">                    return 0;</span><br><span class="line">                &#125;</span><br><span class="line">                else if ( v22 == 1 &amp;&amp; map[5 * i_1 + 4] &gt; map[5 * i_1 + 9] )</span><br><span class="line">                &#123;</span><br><span class="line">                  return 0;</span><br><span class="line">                &#125;</span><br><span class="line">                ++i_1;</span><br><span class="line">                result = 1;</span><br><span class="line">                if ( i_1 &gt;= 4 )</span><br><span class="line">                  return result;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return 0;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用z3解数独</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">from z3 import *</span><br><span class="line">from hashlib import md5</span><br><span class="line">rowss = [[0x00, 0x00, 0x00, 0x01],</span><br><span class="line">         [0x01, 0x00, 0x00, 0x00],</span><br><span class="line">         [0x02, 0x00, 0x00, 0x01],</span><br><span class="line">         [0x00, 0x00, 0x00, 0x00],</span><br><span class="line">         [0x01, 0x00, 0x01, 0x00]]</span><br><span class="line">colnms = [[0x00, 0x00, 0x02, 0x00, 0x02],</span><br><span class="line">          [0x00, 0x00, 0x00, 0x00, 0x00],</span><br><span class="line">          [0x00, 0x00, 0x00, 0x01, 0x00],</span><br><span class="line">          [0x00, 0x01, 0x00, 0x00, 0x01]]</span><br><span class="line">s = Solver()</span><br><span class="line">map = [[None]*5,</span><br><span class="line">       [None]*5,</span><br><span class="line">       [None]*5,</span><br><span class="line">       [None]*5,</span><br><span class="line">       [None]*5]</span><br><span class="line">for i in range(5):</span><br><span class="line">    for j in range(5):</span><br><span class="line">        map[i][j] = Int(&quot;x%d%d&quot; % (i, j))              # 先初始化设置未知数</span><br><span class="line"></span><br><span class="line">s.add(map[2][2] == 4)</span><br><span class="line">s.add(map[3][3] == 3)                                  # 添加条件: 有两个位置已知</span><br><span class="line">for i in range(5):</span><br><span class="line">    for j in range(5):</span><br><span class="line">        s.add(map[i][j] &gt;= 1)</span><br><span class="line">        s.add(map[i][j] &lt;= 5)                          # 添加条件: 填的数字为1-5</span><br><span class="line">for i in range(5):</span><br><span class="line">    for j in range(5):</span><br><span class="line">        for k in range(j):</span><br><span class="line">            s.add(map[i][j] != map[i][k])              # 添加条件: 一行中不能有相同</span><br><span class="line">for j in range(5):</span><br><span class="line">    for i in range(5):</span><br><span class="line">        for k in range(i):</span><br><span class="line">            s.add(map[i][j] != map[k][j])              # 添加条件: 一列中不能有相同</span><br><span class="line">for i in range(5):</span><br><span class="line">    for j in range(4):</span><br><span class="line">        if rowss[i][j] == 1:</span><br><span class="line">            s.add(map[i][j] &gt; map[i][j+1])</span><br><span class="line">        elif rowss[i][j] == 2:</span><br><span class="line">            s.add(map[i][j] &lt; map[i][j+1])             # 根据题目分析添加条件</span><br><span class="line">for i in range(4):</span><br><span class="line">    for j in range(5):</span><br><span class="line">        if colnms[i][j] == 2:</span><br><span class="line">            s.add(map[i][j] &gt; map[i+1][j])</span><br><span class="line">        elif colnms[i][j] == 1:</span><br><span class="line">            s.add(map[i][j] &lt; map[i+1][j])             # 根据题目分析添加条件</span><br><span class="line">answer = s.check()</span><br><span class="line">if answer == sat:</span><br><span class="line">    print(s.model())</span><br><span class="line">    m = s.model()</span><br><span class="line">    flag = []</span><br><span class="line">    for i in map:</span><br><span class="line">        for j in i:</span><br><span class="line">            flag.append(m[j].as_long())</span><br><span class="line">    for i in range(len(flag)):</span><br><span class="line">        flag[i] += 48</span><br><span class="line">    flag[12] = 48</span><br><span class="line">    flag[18] = 48</span><br><span class="line">    flag = bytes(flag)</span><br><span class="line">    print(&quot;CISCN&#123;%s&#125;&quot; % md5(flag).hexdigest())</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/23/ciscn-babybc/" data-id="clu47h5f500053cd6d1v9dft3" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/03/23/ciscn-moveAside/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/03/23/iscc-analysis/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/23/iscc-Greedy_Snake/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/23/iscc-garden/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/23/ciscn-babyre/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/23/ciscn-moveAside/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/23/ciscn-babybc/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
